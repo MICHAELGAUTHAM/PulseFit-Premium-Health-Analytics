@@ -2,7 +2,7 @@ import os
 import shutil
 import random
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -205,3 +205,32 @@ def delete_account(current_user: User = Depends(get_current_user), db: Session =
     db.delete(current_user)
     db.commit()
     return {"message": "Account deleted successfully"}
+
+@router.get("/users", response_model=List[UserResponse])
+def list_users(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    users = db.query(User).order_by(User.id.desc()).all()
+    return users
+
+@router.post("/users", response_model=UserResponse)
+def create_user_by_admin(user_data: UserCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if user_data.password != user_data.confirm_password:
+        raise HTTPException(status_code=400, detail="Passwords do not match")
+    
+    existing_user = db.query(User).filter(User.email == user_data.email).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+        
+    hashed_pwd = get_password_hash(user_data.password)
+    new_user = User(
+        full_name=user_data.full_name,
+        email=user_data.email,
+        hashed_password=hashed_pwd,
+        gender=user_data.gender,
+        age=user_data.age,
+        height=user_data.height,
+        weight=user_data.weight
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user

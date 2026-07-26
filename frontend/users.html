@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management | PulseFit Premium</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .users-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        @media (max-width: 992px) {
+            .users-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        .user-table-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+        .user-table-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .user-table-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <!-- Aurora background blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Navigation Header -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html#dashboard" class="nav-link">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="index.html#water-bmi" class="nav-link">
+                    <i data-lucide="heart-pulse"></i>
+                    <span>Trackers</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i data-lucide="history"></i>
+                    <span>History</span>
+                </a>
+                <a href="achievements.html" class="nav-link">
+                    <i data-lucide="trophy"></i>
+                    <span>Achievements</span>
+                </a>
+                <a href="notifications.html" class="nav-link">
+                    <i data-lucide="bell"></i>
+                    <span>Alerts</span>
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i data-lucide="user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="users.html" class="nav-link active">
+                    <i data-lucide="users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="page-container" style="max-width: 1200px;">
+        <section class="page-title-section" style="margin-bottom: 40px;">
+            <h1 class="page-title">User <span class="gradient-text">Management</span></h1>
+            <p class="page-subtitle">Monitor registered profiles and provision new user accounts in the system.</p>
+        </section>
+
+        <div class="users-layout">
+            <!-- Left Card: Create User Form -->
+            <div class="marketing-card">
+                <h3 class="marketing-card-title" style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="user-plus" class="text-primary" style="width: 20px; height: 20px;"></i>
+                    Create New User
+                </h3>
+                
+                <form id="admin-create-user-form" novalidate>
+                    <div class="form-group">
+                        <label for="create-name" class="form-label">Full Name</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="user"></i>
+                            <input type="text" id="create-name" class="form-input" placeholder="Alex Rivera" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="create-email" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="mail"></i>
+                            <input type="email" id="create-email" class="form-input" placeholder="alex@domain.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="create-pwd" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="lock"></i>
+                            <input type="password" id="create-pwd" class="form-input" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="create-cpwd" class="form-label">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="lock"></i>
+                            <input type="password" id="create-cpwd" class="form-input" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="create-gender" class="form-label">Gender</label>
+                            <select id="create-gender" class="form-select">
+                                <option value="" disabled selected>Select</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="create-age" class="form-label">Age</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="calendar"></i>
+                                <input type="number" id="create-age" class="form-input" style="padding-left: 48px;" placeholder="28">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="create-height" class="form-label">Height (cm)</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="ruler"></i>
+                                <input type="number" id="create-height" class="form-input" style="padding-left: 48px;" placeholder="170">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="create-weight" class="form-label">Weight (kg)</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="scale"></i>
+                                <input type="number" id="create-weight" class="form-input" style="padding-left: 48px;" placeholder="65">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-ripple" id="create-submit-btn" style="width: 100%; padding: 12px; margin-top: 15px;">
+                        <span>Create User Account</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Card: Users List Table -->
+            <div class="marketing-card history-table-card">
+                <h3 class="marketing-card-title" style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="users" class="text-accent" style="width: 20px; height: 20px;"></i>
+                    Registered System Users
+                </h3>
+
+                <div style="overflow-x: auto;">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Age</th>
+                                <th>Height</th>
+                                <th>Weight</th>
+                                <th>Joined Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <tr>
+                                <td colspan="7" style="text-align: center;">Fetching system users...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const tbody = document.getElementById('users-table-body');
+            const form = document.getElementById('admin-create-user-form');
+            const submitBtn = document.getElementById('create-submit-btn');
+
+            // Load Users List
+            async function fetchUsers() {
+                try {
+                    const res = await apiFetch('/auth/users');
+                    if (res.ok) {
+                        const users = await res.json();
+                        if (users.length === 0) {
+                            tbody.innerHTML = `<tr><td colspan="7" style="text-align: center;">No users registered yet.</td></tr>`;
+                            return;
+                        }
+
+                        tbody.innerHTML = '';
+                        users.forEach(user => {
+                            const dateStr = new Date(user.created_at).toLocaleDateString('en-US', {
+                                month: 'short', day: 'numeric', year: 'numeric'
+                            });
+                            
+                            const avatarUrl = user.profile_pic || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop';
+                            
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td>
+                                    <div class="user-table-identity">
+                                        <img src="${avatarUrl}" alt="Avatar" class="user-table-avatar">
+                                        <span class="user-table-name">${escapeHtml(user.full_name)}</span>
+                                    </div>
+                                </td>
+                                <td>${escapeHtml(user.email)}</td>
+                                <td style="text-transform: capitalize;">${user.gender || 'N/A'}</td>
+                                <td>${user.age || 'N/A'}</td>
+                                <td>${user.height ? user.height + ' cm' : 'N/A'}</td>
+                                <td>${user.weight ? user.weight + ' kg' : 'N/A'}</td>
+                                <td>${dateStr}</td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                        
+                        if (window.lucide) window.lucide.createIcons();
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--danger-color);">Failed to fetch users list.</td></tr>`;
+                    }
+                } catch (e) {
+                    console.error('Error fetching users:', e);
+                    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--danger-color);">Error connecting to API.</td></tr>`;
+                }
+            }
+
+            // HTML escape helper to prevent XSS
+            function escapeHtml(str) {
+                if (!str) return '';
+                return str.replace(/&/g, "&amp;")
+                          .replace(/</g, "&lt;")
+                          .replace(/>/g, "&gt;")
+                          .replace(/"/g, "&quot;")
+                          .replace(/'/g, "&#039;");
+            }
+
+            // Create User Form Handler
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('create-name').value.trim();
+                const email = document.getElementById('create-email').value.trim();
+                const password = document.getElementById('create-pwd').value;
+                const confirmPassword = document.getElementById('create-cpwd').value;
+                const gender = document.getElementById('create-gender').value;
+                const ageVal = document.getElementById('create-age').value;
+                const heightVal = document.getElementById('create-height').value;
+                const weightVal = document.getElementById('create-weight').value;
+
+                // Simple validation
+                if (!name || !email || !password || !confirmPassword) {
+                    showToast('Please fill out all mandatory fields.', 'error');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    showToast('Passwords do not match.', 'error');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showToast('Password must be at least 6 characters long.', 'error');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = `<span>Creating Account...</span>`;
+
+                const payload = {
+                    full_name: name,
+                    email: email,
+                    password: password,
+                    confirm_password: confirmPassword,
+                    gender: gender || null,
+                    age: ageVal ? parseInt(ageVal) : null,
+                    height: heightVal ? parseFloat(heightVal) : null,
+                    weight: weightVal ? parseFloat(weightVal) : null
+                };
+
+                try {
+                    const res = await apiFetch('/auth/users', {
+                        method: 'POST',
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        showToast('User account created successfully!', 'success');
+                        form.reset();
+                        fetchUsers();
+                    } else {
+                        showToast(data.detail || 'Failed to create user.', 'error');
+                    }
+                } catch (err) {
+                    console.error('Submit user failure:', err);
+                    showToast('Failed to connect to API.', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+
+            // Run initial load
+            fetchUsers();
+        });
+    </script>
+</body>
+</html>
