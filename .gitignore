@@ -1,0 +1,33 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database
+pulsefit.db
+*.sqlite
+*.db
+
+# User uploads
+uploads/
+/uploads/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+.project
+.pydevproject
+
+# System generated or logs
+*.log
+.system_generated/

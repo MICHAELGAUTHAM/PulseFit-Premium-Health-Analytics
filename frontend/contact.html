@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact PulseFit | Premium Support</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <!-- Aurora background blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Navigation Header -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="faq.html" class="nav-link">FAQs</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap">
+                    <!-- Configured dynamically by auth.js -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <section class="page-title-section">
+            <h1 class="page-title">Connect with <span class="gradient-text">PulseFit</span></h1>
+            <p class="page-subtitle">Have questions or feedback? Our team is here to assist you in syncing your metrics.</p>
+        </section>
+
+        <section class="about-grid-2" style="margin-bottom: 60px;">
+            <!-- Contact Details Card -->
+            <div class="marketing-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h3 class="marketing-card-title">Contact Information</h3>
+                    <p class="marketing-card-desc">Reach out to us via any channel or visit our headquarters.</p>
+                    
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i data-lucide="mail"></i>
+                            </div>
+                            <div class="contact-info-details">
+                                <h4>Email Us</h4>
+                                <p>support@pulsefit.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div class="contact-info-details">
+                                <h4>Call Support</h4>
+                                <p>+1 (555) 389-2910</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div class="contact-info-details">
+                                <h4>Office Headquarters</h4>
+                                <p>Suite 400, 100 Aurora Boulevard, San Francisco, CA 94107</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Map Iframe Placeholder -->
+                <div class="map-placeholder">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.08630746985!2d-122.4194155!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <!-- Contact Form Card -->
+            <div class="marketing-card">
+                <h3 class="marketing-card-title">Send a Message</h3>
+                <p class="marketing-card-desc" style="margin-bottom: 24px;">Fill out the form below, and we'll reply within 24 hours.</p>
+                
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="contact-name" class="form-label">Full Name</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="user"></i>
+                            <input type="text" id="contact-name" class="form-input" placeholder="Sarah Jenkins" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-email" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="mail"></i>
+                            <input type="email" id="contact-email" class="form-input" placeholder="sarah@email.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-subject" class="form-label">Subject</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="help-circle"></i>
+                            <input type="text" id="contact-subject" class="form-input" placeholder="How can we help?" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-message" class="form-label">Message</label>
+                        <textarea id="contact-message" class="form-input" style="height: 120px; resize: none; padding-left: 16px;" placeholder="Write your message here..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-auth btn-ripple" id="btn-contact-submit">
+                        <span>Send Message</span>
+                        <i data-lucide="send"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. Designed for premium health awareness. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+                <a href="#" class="social-btn" aria-label="GitHub"><i data-lucide="github"></i></a>
+                <a href="#" class="social-btn" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('btn-contact-submit');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span class="spinner"></span> <span>Sending...</span>`;
+                
+                setTimeout(() => {
+                    // Success
+                    if (window.showToast) {
+                        window.showToast('Your message has been sent successfully. We will contact you soon.', 'success');
+                    } else {
+                        alert('Message sent successfully!');
+                    }
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span>Send Message</span> <i data-lucide="send"></i>`;
+                    if (window.lucide) window.lucide.createIcons();
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

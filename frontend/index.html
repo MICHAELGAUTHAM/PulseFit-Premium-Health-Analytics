@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseFit | Premium Health Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Script to prevent FOUC (Flash of Unauthenticated Content) -->
+    <script>
+        (function() {
+            const token = localStorage.getItem('pulsefit_token') || sessionStorage.getItem('pulsefit_token');
+            if (token) {
+                document.documentElement.classList.add('logged-in');
+            }
+        })();
+    </script>
+</head>
+<body class="dark-theme">
+    <!-- Background Animated Aurora/Blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Mouse Glow Glow Background Effect -->
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Floating Glass Navigation -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            
+            <div class="nav-menu">
+                <a href="#dashboard" class="nav-link active" data-tab="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#water-bmi" class="nav-link" data-tab="trackers">
+                    <i data-lucide="heart-pulse"></i>
+                    <span>Trackers</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i data-lucide="history"></i>
+                    <span>History</span>
+                </a>
+                <a href="achievements.html" class="nav-link">
+                    <i data-lucide="trophy"></i>
+                    <span>Achievements</span>
+                </a>
+                <a href="notifications.html" class="nav-link">
+                    <i data-lucide="bell"></i>
+                    <span>Alerts</span>
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i data-lucide="user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap">
+                    <!-- Configured dynamically by auth.js -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section public-landing">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Revolutionizing Personal Health</span>
+                </div>
+                <h1 class="hero-title">Track. Refine.<br><span class="gradient-text">Elevate Your Life.</span></h1>
+                <p class="hero-subtitle">
+                    Experience PulseFit—a premium, biometric tracking dashboard built to synchronize your body, mind, and habits into a unified harmony.
+                </p>
+                <div class="hero-actions">
+                    <a href="#dashboard" class="btn btn-primary btn-ripple">
+                        Explore Dashboard
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                    <a href="#water-bmi" class="btn btn-secondary btn-ripple">
+                        Quick Calculators
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <!-- Heartbeat ECG Graphic -->
+                <div class="ecg-card glass-card">
+                    <div class="ecg-header">
+                        <div class="ecg-title-wrap">
+                            <i data-lucide="heart" class="icon-pulse text-danger"></i>
+                            <div>
+                                <span class="ecg-label">Biometric Heartline</span>
+                                <div class="ecg-status">Pulse normal</div>
+                            </div>
+                        </div>
+                        <span class="bpm-counter font-heading">72 <span class="bpm-unit">BPM</span></span>
+                    </div>
+                    <div class="ecg-graph-wrap">
+                        <svg class="ecg-svg" viewBox="0 0 400 150">
+                            <defs>
+                                <linearGradient id="heartGradient" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="var(--accent-color)" />
+                                    <stop offset="50%" stop-color="var(--primary-color)" />
+                                    <stop offset="100%" stop-color="var(--secondary-color)" />
+                                </linearGradient>
+                            </defs>
+                            <path class="ecg-grid-lines" d="M 0,25 L 400,25 M 0,50 L 400,50 M 0,75 L 400,75 M 0,100 L 400,100 M 0,125 L 400,125" />
+                            <path class="ecg-line" d="M 0,75 Q 15,75 30,75 Q 35,70 40,80 Q 45,75 55,75 Q 70,75 80,60 Q 85,110 90,20 Q 95,85 100,75 Q 115,75 130,75 Q 145,75 160,75 Q 165,70 170,80 Q 175,75 185,75 Q 200,75 210,60 Q 215,110 220,20 Q 225,85 230,75 Q 245,75 260,75 Q 275,75 290,75 Q 295,70 300,80 Q 305,75 315,75 Q 330,75 340,60 Q 345,110 350,20 Q 355,85 360,75 Q 375,75 400,75" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Floating Quick Cards -->
+                <div class="floating-card float-card-1 glass-card">
+                    <div class="float-icon-wrap bg-primary-soft">
+                        <i data-lucide="zap" class="text-primary"></i>
+                    </div>
+                    <div>
+                        <div class="float-title">Calories Burned</div>
+                        <div class="float-val">640 kcal</div>
+                    </div>
+                </div>
+
+                <div class="floating-card float-card-2 glass-card">
+                    <div class="float-icon-wrap bg-success-soft">
+                        <i data-lucide="activity" class="text-success"></i>
+                    </div>
+                    <div>
+                        <div class="float-title">Daily Health Index</div>
+                        <div class="float-val">94%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bento Grid Dashboard Section -->
+        <section id="dashboard" class="dashboard-section section-padding private-dashboard">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Biometric Bento Grid</h2>
+                    <p class="section-subtitle">Realtime synchronization of your daily vitals, metrics, and progress.</p>
+                </div>
+            </div>
+
+            <div class="bento-grid">
+                <!-- 1. Heart Rate (Double Width) -->
+                <div class="bento-card glass-card span-col-2" id="card-heart">
+                    <div class="card-glow"></div>
+                    <div class="bento-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap hr-icon-wrap">
+                                <i data-lucide="heart" class="text-danger icon-pulse"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Realtime Vitals</span>
+                                <h3 class="card-title">Heart Rate</h3>
+                            </div>
+                        </div>
+                        <span class="badge badge-success-soft">Active Now</span>
+                    </div>
+                    
+                    <div class="card-body-layout hr-layout">
+                        <div class="metric-display">
+                            <span class="metric-value" id="val-heart">72</span>
+                            <span class="metric-unit">BPM</span>
+                            <div class="metric-status text-success">
+                                <i data-lucide="trending-down"></i>
+                                <span>Optimal resting rate</span>
+                            </div>
+                        </div>
+                        <div class="mini-chart-container">
+                            <canvas id="chart-heart-mini"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Daily Goal Radial Rings -->
+                <div class="bento-card glass-card span-row-2" id="card-goals">
+                    <div class="card-glow"></div>
+                    <div class="bento-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap">
+                                <i data-lucide="target" class="text-accent"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Goals Completion</span>
+                                <h3 class="card-title">Daily Rings</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="radial-rings-body">
+                        <div class="svg-rings-wrapper">
+                            <svg class="radial-rings-svg" viewBox="0 0 200 200">
+                                <!-- Steps Ring -->
+                                <circle class="ring-bg" cx="100" cy="100" r="80" />
+                                <circle class="ring-progress" id="ring-steps" cx="100" cy="100" r="80" stroke="var(--accent-color)" stroke-dasharray="502" stroke-dashoffset="502" />
+                                
+                                <!-- Calories Ring -->
+                                <circle class="ring-bg" cx="100" cy="100" r="60" />
+                                <circle class="ring-progress" id="ring-calories" cx="100" cy="100" r="60" stroke="var(--secondary-color)" stroke-dasharray="377" stroke-dashoffset="377" />
+                                
+                                <!-- Water Ring -->
+                                <circle class="ring-bg" cx="100" cy="100" r="40" />
+                                <circle class="ring-progress" id="ring-water" cx="100" cy="100" r="40" stroke="var(--primary-color)" stroke-dasharray="251" stroke-dashoffset="251" />
+                            </svg>
+                            <div class="rings-percentage-display">
+                                <span id="rings-percentage">75%</span>
+                                <span class="percent-label">Avg. Completed</span>
+                            </div>
+                        </div>
+
+                        <div class="rings-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot" style="background-color: var(--accent-color);"></span>
+                                <span class="legend-name">Steps</span>
+                                <span class="legend-value" id="legend-steps-val">76%</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot" style="background-color: var(--secondary-color);"></span>
+                                <span class="legend-name">Calories</span>
+                                <span class="legend-value" id="legend-calories-val">80%</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot" style="background-color: var(--primary-color);"></span>
+                                <span class="legend-name">Water</span>
+                                <span class="legend-value" id="legend-water-val">68%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Steps -->
+                <div class="bento-card glass-card" id="card-steps">
+                    <div class="card-glow"></div>
+                    <div class="bento-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap">
+                                <i data-lucide="footprints" class="text-accent"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Activity</span>
+                                <h3 class="card-title">Steps</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body-simple">
+                        <div class="metric-display">
+                            <span class="metric-value animate-number" id="val-steps" data-target="7624">0</span>
+                            <span class="metric-unit">steps</span>
+                        </div>
+                        
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill fill-accent" id="progress-steps-bar" style="width: 76.2%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>Goal: 10,000</span>
+                                <span>76.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Water Intake (Quick View) -->
+                <div class="bento-card glass-card" id="card-water">
+                    <div class="card-glow"></div>
+                    <div class="bento-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap">
+                                <i data-lucide="droplet" class="text-primary"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Hydration</span>
+                                <h3 class="card-title">Water</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body-simple">
+                        <div class="metric-display">
+                            <span class="metric-value animate-number" id="val-water-quick">1700</span>
+                            <span class="metric-unit">ml</span>
+                        </div>
+                        
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill fill-primary" id="progress-water-bar" style="width: 68%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>Goal: 2,500ml</span>
+                                <span id="val-water-pct">68%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Sleep -->
+                <div class="bento-card glass-card" id="card-sleep">
+                    <div class="card-glow"></div>
+                    <div class="bento-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap">
+                                <i data-lucide="moon" class="text-secondary"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Circadian</span>
+                                <h3 class="card-title">Sleep</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body-simple">
+                        <div class="metric-display">
+                            <div class="metric-value-row">
+                                <span class="metric-value" id="val-sleep-hours">7.5</span>
+                                <span class="metric-unit">hrs</span>
+                            </div>
+                            <div class="sleep-score-pill">
+                                <span>Quality Score:</span>
+                                <span class="text-secondary font-heading" id="val-sleep-score">84%</span>
+                            </div>
+                        </div>
+                        <div class="sleep-timeline-mini">
+                            <div class="timeline-bar">
+                                <div class="timeline-seg deep" style="width: 25%" title="Deep Sleep"></div>
+                                <div class="timeline-seg rem" style="width: 35%" title="REM Sleep"></div>
+                                <div class="timeline-seg light" style="width: 30%" title="Light Sleep"></div>
+                                <div class="timeline-seg awake" style="width: 10%" title="Awake"></div>
+                            </div>
+                            <div class="timeline-labels">
+                                <span>23:00</span>
+                                <span>06:30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Calories (Burned vs Target) -->
+                <div class="bento-card glass-card" id="card-calories">
+                    <div class="card-glow"></div>
+                    <div class="bento-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap">
+                                <i data-lucide="flame" class="text-warning"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Energy Output</span>
+                                <h3 class="card-title">Calories</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body-simple">
+                        <div class="metric-display">
+                            <span class="metric-value animate-number" id="val-calories" data-target="1920">0</span>
+                            <span class="metric-unit">kcal</span>
+                        </div>
+                        
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill fill-warning" id="progress-calories-bar" style="width: 80%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>Goal: 2,400 kcal</span>
+                                <span>80%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Weekly Progress (Double Width) -->
+                <div class="bento-card glass-card span-col-2" id="card-weekly">
+                    <div class="card-glow"></div>
+                    <div class="bento-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap">
+                                <i data-lucide="trending-up" class="text-success"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Biometric Trend</span>
+                                <h3 class="card-title">Weekly Progress</h3>
+                            </div>
+                        </div>
+                        <div class="weekly-legend-toggle">
+                            <span class="dot-label"><span class="dot" style="background-color: var(--primary-color)"></span>Score</span>
+                            <span class="dot-label"><span class="dot" style="background-color: var(--accent-color)"></span>Activity</span>
+                        </div>
+                    </div>
+                    
+                    <div class="weekly-chart-body">
+                        <canvas id="chart-weekly-progress"></canvas>
+                    </div>
+                </div>
+
+                <!-- 8. Achievements -->
+                <div class="bento-card glass-card" id="card-achievements">
+                    <div class="card-glow"></div>
+                    <div class="bento-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap">
+                                <i data-lucide="trophy" class="text-warning"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Milestones</span>
+                                <h3 class="card-title">Achievements</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievements-body">
+                        <div class="badge-list">
+                            <div class="badge-item active-badge" title="Hydration Champion">
+                                <div class="badge-icon-wrap">
+                                    <i data-lucide="droplet" class="text-primary"></i>
+                                </div>
+                                <span class="badge-item-label">Hydro Master</span>
+                            </div>
+                            <div class="badge-item active-badge" title="10K steps completed">
+                                <div class="badge-icon-wrap">
+                                    <i data-lucide="footprints" class="text-accent"></i>
+                                </div>
+                                <span class="badge-item-label">10k Steps</span>
+                            </div>
+                            <div class="badge-item locked-badge" title="Sleep perfect week">
+                                <div class="badge-icon-wrap">
+                                    <i data-lucide="moon" class="text-secondary"></i>
+                                </div>
+                                <span class="badge-item-label">Dreamer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Trackers (Water & BMI) -->
+        <section id="water-bmi" class="trackers-section section-padding private-dashboard">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Interactive Health Modules</h2>
+                    <p class="section-subtitle">Deep dive tools with live inputs, status calculations, and rich visual effects.</p>
+                </div>
+            </div>
+
+            <div class="trackers-grid">
+                <!-- Water Tracker Card (Liquid Wave) -->
+                <div class="tracker-card glass-card" id="card-water-detailed">
+                    <div class="card-glow"></div>
+                    <div class="tracker-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap bg-primary-soft">
+                                <i data-lucide="droplet" class="text-primary"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Daily Ingestion</span>
+                                <h3 class="card-title">Hydration Chamber</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="water-tracker-body">
+                        <!-- Liquid Vessel Visual -->
+                        <div class="water-bottle-container">
+                            <div class="water-vessel">
+                                <!-- Wave Overlay SVG -->
+                                <div class="water-waves" id="water-level-waves" style="transform: translateY(32%);">
+                                    <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                                        <defs>
+                                            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" />
+                                        </defs>
+                                        <g class="parallax">
+                                            <use href="#gentle-wave" x="48" y="0" fill="rgba(37, 99, 235, 0.3)" />
+                                            <use href="#gentle-wave" x="48" y="3" fill="rgba(0, 229, 255, 0.4)" />
+                                            <use href="#gentle-wave" x="48" y="5" fill="rgba(37, 99, 235, 0.7)" />
+                                            <use href="#gentle-wave" x="48" y="7" fill="var(--primary-color)" />
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="vessel-label font-heading">
+                                    <span id="vessel-percentage">68%</span>
+                                    <span class="vessel-sub">Hydrated</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats & Buttons -->
+                        <div class="water-controls">
+                            <div class="water-stat-row">
+                                <div class="stat-box">
+                                    <span class="stat-val font-heading" id="water-intake-val">1.7L</span>
+                                    <span class="stat-lbl">Intake</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-box">
+                                    <span class="stat-val font-heading">2.5L</span>
+                                    <span class="stat-lbl">Goal Target</span>
+                                </div>
+                            </div>
+
+                            <div class="quick-add-grid">
+                                <button class="btn-quick-add btn-ripple" data-amount="250">
+                                    <span class="plus-icon">+</span>
+                                    <span class="amount-val">250 ml</span>
+                                    <span class="cup-label">Small Glass</span>
+                                </button>
+                                <button class="btn-quick-add btn-ripple" data-amount="500">
+                                    <span class="plus-icon">+</span>
+                                    <span class="amount-val">500 ml</span>
+                                    <span class="cup-label">Tall Bottle</span>
+                                </button>
+                                <button class="btn-quick-add btn-ripple" data-amount="1000">
+                                    <span class="plus-icon">+</span>
+                                    <span class="amount-val">1000 ml</span>
+                                    <span class="cup-label">Hydro Flask</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BMI Calculator Card -->
+                <div class="tracker-card glass-card" id="card-bmi-detailed">
+                    <div class="card-glow"></div>
+                    <div class="tracker-card-header">
+                        <div class="card-title-wrap">
+                            <span class="card-icon-wrap bg-accent-soft">
+                                <i data-lucide="scale" class="text-accent"></i>
+                            </span>
+                            <div>
+                                <span class="card-category">Weight Composition</span>
+                                <h3 class="card-title">Interactive BMI</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bmi-tracker-body">
+                        <!-- Left Sliders Input -->
+                        <div class="bmi-inputs">
+                            <div class="input-slider-group">
+                                <div class="slider-header">
+                                    <label for="bmi-height">Height</label>
+                                    <span class="slider-val-bubble font-heading" id="height-lbl">175 cm</span>
+                                </div>
+                                <input type="range" id="bmi-height" min="100" max="220" value="175" class="range-slider">
+                            </div>
+
+                            <div class="input-slider-group">
+                                <div class="slider-header">
+                                    <label for="bmi-weight">Weight</label>
+                                    <span class="slider-val-bubble font-heading" id="weight-lbl">70 kg</span>
+                                </div>
+                                <input type="range" id="bmi-weight" min="30" max="150" value="70" class="range-slider">
+                            </div>
+                        </div>
+
+                        <!-- Gauge Visual & Text -->
+                        <div class="bmi-visual">
+                            <div class="gauge-container">
+                                <svg class="gauge-svg" viewBox="0 0 200 100">
+                                    <!-- Gauge Arc Background -->
+                                    <path class="gauge-arc-bg" d="M20,95 A80,80 0 0,1 180,95" />
+                                    <!-- Colored Indicator Segments (Underweight, Normal, Overweight, Obese) -->
+                                    <path class="gauge-arc-segment text-accent" d="M20,95 A80,80 0 0,1 60,40" stroke="#00E5FF" />
+                                    <path class="gauge-arc-segment text-success" d="M60,40 A80,80 0 0,1 120,30" stroke="#10B981" />
+                                    <path class="gauge-arc-segment text-warning" d="M120,30 A80,80 0 0,1 160,50" stroke="#F59E0B" />
+                                    <path class="gauge-arc-segment text-danger" d="M160,50 A80,80 0 0,1 180,95" stroke="#EF4444" />
+                                    
+                                    <!-- Gauge Needle -->
+                                    <line class="gauge-needle" id="bmi-needle" x1="100" y1="95" x2="100" y2="25" />
+                                    <circle class="gauge-center" cx="100" cy="95" r="8" />
+                                </svg>
+                                
+                                <div class="bmi-score-wrap">
+                                    <span class="bmi-score-val font-heading" id="val-bmi">22.9</span>
+                                    <span class="bmi-score-status" id="val-bmi-status">Normal Weight</span>
+                                </div>
+                            </div>
+
+                            <div class="bmi-verdict glass-panel" id="bmi-feedback">
+                                <i data-lucide="info" class="text-primary"></i>
+                                <span>You have a healthy body weight. Maintain physical activity & hydration.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section (Public Landing Only) -->
+        <section id="features" class="features-section section-padding public-landing">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Harmonized Vitals, <span class="gradient-text">Beautifully Displayed</span></h2>
+                    <p class="section-subtitle">PulseFit syncs your daily steps, hydration, sleep rhythm, and heart rate trends into a premium bento layout.</p>
+                </div>
+            </div>
+            <div class="feature-grid-3">
+                <div class="marketing-card">
+                    <div class="marketing-card-icon" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-color);">
+                        <i data-lucide="layout-grid"></i>
+                    </div>
+                    <h3 class="marketing-card-title">Biometric Bento Grid</h3>
+                    <p class="marketing-card-desc">An elegant interface displaying steps, calories, water, and sleep quality score at a single glance.</p>
+                </div>
+                <div class="marketing-card">
+                    <div class="marketing-card-icon" style="background: rgba(0, 229, 255, 0.1); color: var(--accent-color);">
+                        <i data-lucide="droplet"></i>
+                    </div>
+                    <h3 class="marketing-card-title">Hydration Chamber</h3>
+                    <p class="marketing-card-desc">Interactive liquid wave visualization reflecting your daily hydration target progress in real-time.</p>
+                </div>
+                <div class="marketing-card">
+                    <div class="marketing-card-icon" style="background: rgba(124, 58, 237, 0.1); color: var(--secondary-color);">
+                        <i data-lucide="trophy"></i>
+                    </div>
+                    <h3 class="marketing-card-title">Gamified Badging</h3>
+                    <p class="marketing-card-desc">Earn badges like Hydration Master and Step Champion as you crush your physical goals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screenshots Section (Public Landing Only) -->
+        <section id="screenshots" class="screenshots-section section-padding public-landing" style="text-align: center;">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Premium Biometric <span class="gradient-text">Visualizations</span></h2>
+                    <p class="section-subtitle">High-fidelity dashboard screens designed to wow and keep you motivated.</p>
+                </div>
+            </div>
+            <div class="marketing-card" style="max-width: 900px; margin: 0 auto; padding: 20px; overflow: hidden; border-radius: 24px;">
+                <img src="https://images.unsplash.com/photo-1510017808632-95f08e047fe2?q=80&w=1200&auto=format&fit=crop" alt="Dashboard Mockup" style="width: 100%; border-radius: 16px; display: block; filter: brightness(0.85);">
+            </div>
+        </section>
+
+        <!-- Testimonials Section (Public Landing Only) -->
+        <section id="testimonials" class="testimonials-section section-padding public-landing">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Trusted by <span class="gradient-text">Fitness Enthusiasts</span></h2>
+                    <p class="section-subtitle">Here is how PulseFit transformed biometric awareness for our active members.</p>
+                </div>
+            </div>
+            <div class="feature-grid-3">
+                <div class="marketing-card">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=128" alt="Sarah" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h4 style="font-family: var(--font-heading); color: var(--text-primary); font-size: 16px;">Sarah Jenkins</h4>
+                            <span style="font-size: 12px; color: var(--accent-color);">Elite Athlete</span>
+                        </div>
+                    </div>
+                    <p class="marketing-card-desc" style="font-style: italic;">"The glassmorphic visualizer is absolutely stunning. Reaching my water target and seeing the liquid wave rise is so satisfying!"</p>
+                </div>
+                <div class="marketing-card">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=128" alt="David" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h4 style="font-family: var(--font-heading); color: var(--text-primary); font-size: 16px;">David Kael</h4>
+                            <span style="font-size: 12px; color: var(--primary-color);">Data Scientist</span>
+                        </div>
+                    </div>
+                    <p class="marketing-card-desc" style="font-style: italic;">"FastAPI responses are lightning-fast. The database log history helps me inspect sleep trends and heart rate fluctuation perfectly."</p>
+                </div>
+                <div class="marketing-card">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=128" alt="Clarissa" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <h4 style="font-family: var(--font-heading); color: var(--text-primary); font-size: 16px;">Clarissa Vance</h4>
+                            <span style="font-size: 12px; color: var(--secondary-color);">Yoga Instructor</span>
+                        </div>
+                    </div>
+                    <p class="marketing-card-desc" style="font-style: italic;">"PulseFit doesn't feel like a boring spreadsheet. It's a gorgeous interactive environment. The gamified streaks kept me active for 42 days straight!"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section (Public Landing Only) -->
+        <section id="pricing" class="pricing-section section-padding public-landing">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Select Your <span class="gradient-text">Pace</span></h2>
+                    <p class="section-subtitle">Start tracking for free or unlock detailed analytics history logs and custom daily goals.</p>
+                </div>
+            </div>
+            <div class="pricing-grid-2" style="max-width: 900px; margin: 0 auto;">
+                <!-- Free Plan -->
+                <div class="marketing-card pricing-card">
+                    <h3 class="marketing-card-title" style="font-size: 22px;">Basic Tier</h3>
+                    <p class="marketing-card-desc">Perfect for entry-level habit tracking and daily biometric checks.</p>
+                    <div class="pricing-price">$0 <span>/ forever</span></div>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check"></i> <span>Daily Bento Grid access</span></li>
+                        <li><i data-lucide="check"></i> <span>Water intake logging</span></li>
+                        <li><i data-lucide="check"></i> <span>Steps and Calories loggers</span></li>
+                        <li style="opacity: 0.4;"><i data-lucide="x" style="color: var(--danger-color);"></i> <span>7-Day history logs analysis</span></li>
+                        <li style="opacity: 0.4;"><i data-lucide="x" style="color: var(--danger-color);"></i> <span>Unlocked achievements badging</span></li>
+                    </ul>
+                    <a href="register.html" class="btn-pricing btn-ripple" style="border: 1px solid var(--card-border); color: var(--text-primary);">Get Started</a>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="marketing-card pricing-card premium">
+                    <div class="pricing-badge">Popular Choice</div>
+                    <h3 class="marketing-card-title" style="font-size: 22px; color: var(--accent-color);">Elite Tier</h3>
+                    <p class="marketing-card-desc">For users dedicated to deep physiological aggregates and badging streaks.</p>
+                    <div class="pricing-price">$9.99 <span>/ month</span></div>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check"></i> <span>All features of Basic Tier</span></li>
+                        <li><i data-lucide="check"></i> <span>Infinite weekly/monthly history charts</span></li>
+                        <li><i data-lucide="check"></i> <span>Unlock 6+ gamified badge achievements</span></li>
+                        <li><i data-lucide="check"></i> <span>JSON raw log data exports</span></li>
+                        <li><i data-lucide="check"></i> <span>Real-time custom daily goals</span></li>
+                    </ul>
+                    <a href="register.html" class="btn-pricing btn-ripple" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: #fff;">Upgrade to Elite</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ summary (Public Landing Only) -->
+        <section id="faq-summary" class="faq-summary-section section-padding public-landing" style="text-align: center; margin-bottom: 40px;">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Common <span class="gradient-text">Questions</span></h2>
+                    <p class="section-subtitle">Need help? Read our quick questions or visit the detailed FAQs catalog.</p>
+                </div>
+            </div>
+            <a href="faq.html" class="btn btn-secondary btn-ripple">
+                View Full FAQs Catalog
+                <i data-lucide="arrow-right" style="width: 16px; height: 16px; margin-left: 8px;"></i>
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. Designed for premium health awareness. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+                <a href="#" class="social-btn" aria-label="GitHub"><i data-lucide="github"></i></a>
+                <a href="#" class="social-btn" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script File -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

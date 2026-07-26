@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About PulseFit | Premium Health Analytics</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <!-- Aurora background blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Navigation Header -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="faq.html" class="nav-link">FAQs</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap">
+                    <!-- Configured dynamically by auth.js -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <section class="page-title-section">
+            <h1 class="page-title">Inside <span class="gradient-text">PulseFit</span></h1>
+            <p class="page-subtitle">Elevating human physical consciousness through beautiful biometric visualizers and daily habit synchronization.</p>
+        </section>
+
+        <!-- Mission & Vision Cards -->
+        <section class="about-grid-2">
+            <div class="marketing-card">
+                <div class="marketing-card-icon bg-primary-soft">
+                    <i data-lucide="target" class="text-primary" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h3 class="marketing-card-title">Our Mission</h3>
+                <p class="marketing-card-desc">To deliver a premium, non-intrusive personal tracking companion that translates complex body vitals into daily actionable habits, empowering users to live healthier, active, and balanced lives.</p>
+            </div>
+            <div class="marketing-card">
+                <div class="marketing-card-icon bg-accent-soft">
+                    <i data-lucide="eye" class="text-accent" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h3 class="marketing-card-title">Our Vision</h3>
+                <p class="marketing-card-desc">We envision a world where physical metrics are not just numbers, but harmonious signals. PulseFit aims to lead the biometric UI space with stunning, interactive aesthetics that make tracking a delight.</p>
+            </div>
+        </section>
+
+        <!-- Tech Stack Used -->
+        <section class="page-title-section" style="margin-top: 80px; margin-bottom: 40px;">
+            <h2 class="section-title" style="font-size: 32px; font-family: var(--font-heading);">Technologies Powering PulseFit</h2>
+            <p class="section-subtitle">A high-performance modern stack selected for responsive rendering and security.</p>
+        </section>
+
+        <section class="feature-grid-3">
+            <div class="marketing-card" style="padding: 24px;">
+                <h4 class="marketing-card-title"><span class="text-accent">Frontend UI</span></h4>
+                <p class="marketing-card-desc" style="font-size: 14px; line-height: 1.6;">
+                    HTML5 structural semantic elements, CSS3 variables design system, and custom JavaScript with Chart.js render smooth animations and real-time interactive widgets.
+                </p>
+            </div>
+            <div class="marketing-card" style="padding: 24px;">
+                <h4 class="marketing-card-title"><span class="text-primary">FastAPI Engine</span></h4>
+                <p class="marketing-card-desc" style="font-size: 14px; line-height: 1.6;">
+                    Python-based backend leveraging FastAPI for highly responsive, documentation-ready JSON routers, dependency injection, and clean CORS pipelines.
+                </p>
+            </div>
+            <div class="marketing-card" style="padding: 24px;">
+                <h4 class="marketing-card-title"><span class="text-success">Data Durability</span></h4>
+                <p class="marketing-card-desc" style="font-size: 14px; line-height: 1.6;">
+                    SQLAlchemy Object Relational Mapper connected to SQLite/PostgreSQL with JWT-based session tables and hashed passwords for enterprise security.
+                </p>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="page-title-section" style="margin-top: 80px; margin-bottom: 40px;">
+            <h2 class="section-title" style="font-size: 32px; font-family: var(--font-heading);">The Creators</h2>
+        </section>
+
+        <section class="feature-grid-3" style="margin-bottom: 80px;">
+            <div class="marketing-card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; border-radius: 50%; overflow:hidden; margin: 0 auto 16px auto; border: 2px solid var(--primary-color);">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&auto=format&fit=crop" alt="Founder" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <h4 class="marketing-card-title" style="margin-bottom: 4px;">Marcus Vance</h4>
+                <p style="font-size: 13px; color: var(--text-primary); margin-bottom: 12px; font-weight: 600;">Co-Founder & UI Designer</p>
+                <p class="marketing-card-desc" style="font-size: 13px;">Passionate about glassmorphism and crafting beautiful visual user experiences.</p>
+            </div>
+
+            <div class="marketing-card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; border-radius: 50%; overflow:hidden; margin: 0 auto 16px auto; border: 2px solid var(--secondary-color);">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=256&auto=format&fit=crop" alt="Developer" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <h4 class="marketing-card-title" style="margin-bottom: 4px;">Clara Montgomery</h4>
+                <p style="font-size: 13px; color: var(--text-primary); margin-bottom: 12px; font-weight: 600;">Full-Stack Engineer</p>
+                <p class="marketing-card-desc" style="font-size: 13px;">FastAPI expert who loves writing clean SQL abstractions and optimizing APIs.</p>
+            </div>
+
+            <div class="marketing-card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; border-radius: 50%; overflow:hidden; margin: 0 auto 16px auto; border: 2px solid var(--accent-color);">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=256&auto=format&fit=crop" alt="Product Manager" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <h4 class="marketing-card-title" style="margin-bottom: 4px;">David Kael</h4>
+                <p style="font-size: 13px; color: var(--text-primary); margin-bottom: 12px; font-weight: 600;">Biometric Lead Specialist</p>
+                <p class="marketing-card-desc" style="font-size: 13px;">Envisions new indicators and algorithms to measure habit streak milestones.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. Designed for premium health awareness. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+                <a href="#" class="social-btn" aria-label="GitHub"><i data-lucide="github"></i></a>
+                <a href="#" class="social-btn" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | PulseFit</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-container" style="max-width: 800px;">
+        <div class="marketing-card" style="padding: 40px; margin-bottom: 60px;">
+            <h1 class="page-title" style="font-size: 32px; margin-bottom: 20px;">Privacy Policy</h1>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 30px;">Last Updated: July 24, 2026</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 24px; font-size: 15px; color: var(--text-secondary); line-height: 1.7;">
+                <p>
+                    At PulseFit, we value your privacy above all. This Privacy Policy details how we handle your biometrics, user accounts, and personal profile data when you interact with our local health dashboard.
+                </p>
+
+                <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-top: 10px;">1. Information We Collect</h3>
+                <p>
+                    We collect credentials (email and hashed passwords) to protect account access. In addition, we collect biometric parameters you input (height, weight, age, steps walked, calories burned, sleep hours, water consumed, and resting heart rates) to calculate your Health Index and generate analytics.
+                </p>
+
+                <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-top: 10px;">2. How We Use Data</h3>
+                <p>
+                    We use your data strictly to display history trends, score goals, and trigger achievements locally. We do NOT lease, distribute, or share your fitness logs or personal parameters with external marketing agencies or third parties.
+                </p>
+
+                <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-top: 10px;">3. Data Deletion and Revocation</h3>
+                <p>
+                    You have complete control over your files. You can export your health logs in JSON format or delete your account at any time. Clicking "Delete Account" in settings triggers an immediate cascade that purges all user rows, health logs, and badge progress from our local databases.
+                </p>
+
+                <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-top: 10px;">4. Security Practices</h3>
+                <p>
+                    Passwords are encrypted immediately upon registration using secure bcrypt hashes. Sessions are protected via JSON Web Tokens (JWT) which expire regularly. All database connections are protected against SQL injections.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

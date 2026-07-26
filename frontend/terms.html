@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions | PulseFit</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-container" style="max-width: 800px;">
+        <div class="marketing-card" style="padding: 40px; margin-bottom: 60px;">
+            <h1 class="page-title" style="font-size: 32px; margin-bottom: 20px;">Terms & Conditions</h1>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 30px;">Last Updated: July 24, 2026</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 24px; font-size: 15px; color: var(--text-secondary); line-height: 1.7;">
+                <p>
+                    Welcome to PulseFit. By accessing our health dashboard, you agree to comply with the terms and conditions outlined below.
+                </p>
+
+                <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-top: 10px;">1. Usage Eligibility</h3>
+                <p>
+                    You agree to provide true, current, and complete biometric information about yourself. PulseFit tools are intended solely for fitness tracking and nutritional support.
+                </p>
+
+                <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-top: 10px;">2. Not Medical Advice</h3>
+                <p>
+                    The calculations (including BMI), trends, and scores provided by PulseFit are for general information purposes only and are NOT medical advice. Always consult a healthcare professional before initiating any fitness programs, hydration changes, or weight regimens.
+                </p>
+
+                <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-top: 10px;">3. Account Security</h3>
+                <p>
+                    You are responsible for safeguarding your password and account credentials. PulseFit cannot be held liable for any loss resulting from unauthorized account access or shared sessions.
+                </p>
+
+                <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-top: 10px;">4. Modifications to Service</h3>
+                <p>
+                    We reserve the right to modify, suspend, or discontinue any feature, graph, or tracker of the dashboard at our discretion, without prior notice.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

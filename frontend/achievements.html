@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Achievements | PulseFit Badges</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <!-- Aurora background blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Navigation Header -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html#dashboard" class="nav-link">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="index.html#water-bmi" class="nav-link">
+                    <i data-lucide="heart-pulse"></i>
+                    <span>Trackers</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i data-lucide="history"></i>
+                    <span>History</span>
+                </a>
+                <a href="achievements.html" class="nav-link active">
+                    <i data-lucide="trophy"></i>
+                    <span>Achievements</span>
+                </a>
+                <a href="notifications.html" class="nav-link">
+                    <i data-lucide="bell"></i>
+                    <span>Alerts</span>
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i data-lucide="user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="page-container" style="max-width: 900px;">
+        <section class="page-title-section" style="margin-bottom: 40px;">
+            <h1 class="page-title">Unlocked <span class="gradient-text">Milestones</span></h1>
+            <p class="page-subtitle">Earn premium badge rewards by completing daily habits and maintaining health logs streaks.</p>
+        </section>
+
+        <!-- Achievements Grid -->
+        <div class="marketing-card" style="padding: 30px; margin-bottom: 60px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 16px; margin-bottom: 24px;">
+                <h3 class="marketing-card-title" style="margin-bottom: 0;">Achievements Board</h3>
+                <span style="font-size: 14px; font-weight: 600; color: var(--text-secondary);" id="unlocked-count">Unlocked: 0 / 6</span>
+            </div>
+            
+            <div class="badge-grid" id="badge-grid-container">
+                <!-- Loaded dynamically -->
+                <p style="text-align: center; color: var(--text-secondary); width: 100%;">Fetching achievements...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const grid = document.getElementById('badge-grid-container');
+            const countLabel = document.getElementById('unlocked-count');
+
+            async function loadAchievements() {
+                try {
+                    const res = await apiFetch('/achievements');
+                    if (res.ok) {
+                        const badges = await res.json();
+                        grid.innerHTML = '';
+                        
+                        let unlockedCount = 0;
+                        
+                        badges.forEach(b => {
+                            if (b.unlocked) unlockedCount++;
+                            
+                            const card = document.createElement('div');
+                            card.className = `badge-card ${b.unlocked ? '' : 'locked'}`;
+                            
+                            const dateHtml = b.unlocked && b.unlocked_at
+                                ? `<span style="font-size: 10px; color: var(--success-color); margin-top: 6px; display: block;">Unlocked ${new Date(b.unlocked_at).toLocaleDateString()}</span>`
+                                : `<span style="font-size: 10px; color: var(--text-secondary); margin-top: 6px; display: block;">Locked</span>`;
+
+                            card.innerHTML = `
+                                <div class="badge-card-icon" style="background: ${b.unlocked ? b.color : 'rgba(255,255,255,0.02)'}; color: ${b.unlocked ? '#fff' : 'var(--text-secondary)'};">
+                                    <i data-lucide="${b.unlocked ? b.icon : 'lock'}"></i>
+                                </div>
+                                <h4 class="badge-card-name">${b.name}</h4>
+                                <p class="badge-card-desc">${b.description}</p>
+                                ${dateHtml}
+                            `;
+                            grid.appendChild(card);
+                        });
+
+                        countLabel.textContent = `Unlocked: ${unlockedCount} / ${badges.length}`;
+                        if (window.lucide) window.lucide.createIcons();
+                    }
+                } catch (e) {
+                    grid.innerHTML = `<p style="text-align: center; color: var(--danger-color); width: 100%;">Failed to load achievements board.</p>`;
+                }
+            }
+
+            loadAchievements();
+        });
+    </script>
+</body>
+</html>

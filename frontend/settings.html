@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | PulseFit Health Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <!-- Aurora background blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Navigation Header -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html#dashboard" class="nav-link">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="index.html#water-bmi" class="nav-link">
+                    <i data-lucide="heart-pulse"></i>
+                    <span>Trackers</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i data-lucide="history"></i>
+                    <span>History</span>
+                </a>
+                <a href="achievements.html" class="nav-link">
+                    <i data-lucide="trophy"></i>
+                    <span>Achievements</span>
+                </a>
+                <a href="notifications.html" class="nav-link">
+                    <i data-lucide="bell"></i>
+                    <span>Alerts</span>
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i data-lucide="user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="settings.html" class="nav-link active">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="page-container" style="max-width: 800px;">
+        <section class="page-title-section" style="margin-bottom: 40px;">
+            <h1 class="page-title">System <span class="gradient-text">Configuration</span></h1>
+            <p class="page-subtitle">Personalize metrics, toggle units, clear data indexes, and customize your experience.</p>
+        </section>
+
+        <div class="settings-card glass-card">
+            <div class="settings-list">
+                <!-- Setting 1: Theme -->
+                <div class="settings-item">
+                    <div class="settings-meta">
+                        <div class="settings-icon bg-primary-soft">
+                            <i data-lucide="moon" class="text-primary"></i>
+                        </div>
+                        <div>
+                            <div class="settings-label">Deep Space Theme (Dark Mode)</div>
+                            <div class="settings-desc">Switch dashboard styling to neon colors and ambient glows.</div>
+                        </div>
+                    </div>
+                    <label class="switch-toggle">
+                        <input type="checkbox" id="settings-dark-mode" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Setting 2: Notifications -->
+                <div class="settings-item">
+                    <div class="settings-meta">
+                        <div class="settings-icon bg-success-soft">
+                            <i data-lucide="bell" class="text-success"></i>
+                        </div>
+                        <div>
+                            <div class="settings-label">Push Reminders</div>
+                            <div class="settings-desc">Receive notifications for hydration, steps, and circadian phases.</div>
+                        </div>
+                    </div>
+                    <label class="switch-toggle">
+                        <input type="checkbox" id="settings-notifications" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Setting 3: Units -->
+                <div class="settings-item">
+                    <div class="settings-meta">
+                        <div class="settings-icon bg-accent-soft">
+                            <i data-lucide="compass" class="text-accent"></i>
+                        </div>
+                        <div>
+                            <div class="settings-label">Metric Units</div>
+                            <div class="settings-desc">Format weights in kg and heights in cm instead of lbs and ft.</div>
+                        </div>
+                    </div>
+                    <label class="switch-toggle">
+                        <input type="checkbox" id="settings-units" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Setting 4: Language Selection -->
+                <div class="settings-item">
+                    <div class="settings-meta">
+                        <div class="settings-icon bg-warning-soft">
+                            <i data-lucide="globe" class="text-warning"></i>
+                        </div>
+                        <div>
+                            <div class="settings-label">System Language</div>
+                            <div class="settings-desc">Select display localization and notifications formats.</div>
+                        </div>
+                    </div>
+                    <select class="settings-dropdown" id="settings-lang">
+                        <option value="en">English (US)</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                    </select>
+                </div>
+
+                <div class="settings-section-title">Data Administration</div>
+
+                <!-- Export Data -->
+                <div class="settings-item">
+                    <div class="settings-meta">
+                        <div class="settings-icon bg-primary-soft" style="background: rgba(124, 58, 237, 0.1);">
+                            <i data-lucide="download" class="text-secondary" style="color: var(--secondary-color) !important;"></i>
+                        </div>
+                        <div>
+                            <div class="settings-label">Export Biometric Data</div>
+                            <div class="settings-desc">Export your entire logged health records in JSON format.</div>
+                        </div>
+                    </div>
+                    <button id="btn-export-data" class="btn btn-outline btn-ripple" style="padding: 10px 18px; font-size: 14px; border-color: var(--secondary-color); color: var(--secondary-color);">Export JSON</button>
+                </div>
+
+                <!-- Delete Account -->
+                <div class="settings-item">
+                    <div class="settings-meta">
+                        <div class="settings-icon bg-danger-soft">
+                            <i data-lucide="trash-2" class="text-danger"></i>
+                        </div>
+                        <div>
+                            <div class="settings-label text-danger">Delete User Account</div>
+                            <div class="settings-desc">Erase biometric inputs, credentials, and achievements forever.</div>
+                        </div>
+                    </div>
+                    <button id="btn-delete-account" class="btn btn-outline btn-danger btn-ripple">Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const toggleDarkMode = document.getElementById('settings-dark-mode');
+            const toggleNotifications = document.getElementById('settings-notifications');
+            const toggleUnits = document.getElementById('settings-units');
+            const selectLang = document.getElementById('settings-lang');
+
+            const btnExport = document.getElementById('btn-export-data');
+            const btnDelete = document.getElementById('btn-delete-account');
+
+            // Load settings state from localStorage
+            toggleNotifications.checked = localStorage.getItem('settings_notifications') !== 'false';
+            toggleUnits.checked = localStorage.getItem('settings_units_metric') !== 'false';
+            selectLang.value = localStorage.getItem('settings_lang') || 'en';
+
+            // Bind switch event triggers
+            toggleDarkMode.addEventListener('change', (e) => {
+                setTheme(e.target.checked);
+            });
+
+            toggleNotifications.addEventListener('change', (e) => {
+                localStorage.setItem('settings_notifications', e.target.checked);
+                showToast(`Notifications ${e.target.checked ? 'activated' : 'deactivated'}.`, 'success');
+            });
+
+            toggleUnits.addEventListener('change', (e) => {
+                localStorage.setItem('settings_units_metric', e.target.checked);
+                showToast(`Units switched to ${e.target.checked ? 'Metric' : 'Imperial'}.`, 'success');
+            });
+
+            selectLang.addEventListener('change', (e) => {
+                localStorage.setItem('settings_lang', e.target.value);
+                showToast(`Language setting updated.`, 'success');
+            });
+
+            // JSON Data Export
+            btnExport.addEventListener('click', async () => {
+                btnExport.disabled = true;
+                btnExport.textContent = 'Preparing...';
+
+                try {
+                    const res = await apiFetch('/health');
+                    if (res.ok) {
+                        const logs = await res.json();
+                        
+                        // Create download element
+                        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(logs, null, 2));
+                        const downloadAnchor = document.createElement('a');
+                        downloadAnchor.setAttribute("href", dataStr);
+                        downloadAnchor.setAttribute("download", `pulsefit_health_data_${new Date().toISOString().split('T')[0]}.json`);
+                        document.body.appendChild(downloadAnchor);
+                        downloadAnchor.click();
+                        downloadAnchor.remove();
+
+                        showToast('Health data logs exported successfully.', 'success');
+                    } else {
+                        showToast('Failed to fetch health logs.', 'error');
+                    }
+                } catch (e) {
+                    showToast('Export failed.', 'error');
+                } finally {
+                    btnExport.disabled = false;
+                    btnExport.textContent = 'Export JSON';
+                }
+            });
+
+            // Account Deletion
+            btnDelete.addEventListener('click', async () => {
+                const conf1 = confirm("CAUTION: Are you sure you want to permanently delete your PulseFit account? This cannot be undone.");
+                if (!conf1) return;
+
+                const conf2 = confirm("CRITICAL: All health logs, Streaks, and Achievements will be destroyed permanently. Confirm account deletion.");
+                if (!conf2) return;
+
+                btnDelete.disabled = true;
+                btnDelete.textContent = 'Deleting...';
+
+                try {
+                    const res = await apiFetch('/auth/profile/delete-account', {
+                        method: 'DELETE'
+                    });
+
+                    if (res.ok) {
+                        showToast('Account deleted. Erasing caches...', 'success');
+                        clearToken();
+                        localStorage.clear();
+                        sessionStorage.clear();
+                        
+                        setTimeout(() => {
+                            window.location.href = 'register.html';
+                        }, 1500);
+                    } else {
+                        showToast('Failed to delete account.', 'error');
+                        btnDelete.disabled = false;
+                        btnDelete.textContent = 'Delete Account';
+                    }
+                } catch (e) {
+                    showToast('Communication with backend failed.', 'error');
+                    btnDelete.disabled = false;
+                    btnDelete.textContent = 'Delete Account';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

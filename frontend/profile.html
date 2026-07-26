@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | PulseFit Health Sync</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <!-- Aurora background blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Navigation Header -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html#dashboard" class="nav-link">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="index.html#water-bmi" class="nav-link">
+                    <i data-lucide="heart-pulse"></i>
+                    <span>Trackers</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i data-lucide="history"></i>
+                    <span>History</span>
+                </a>
+                <a href="achievements.html" class="nav-link">
+                    <i data-lucide="trophy"></i>
+                    <span>Achievements</span>
+                </a>
+                <a href="notifications.html" class="nav-link">
+                    <i data-lucide="bell"></i>
+                    <span>Alerts</span>
+                </a>
+                <a href="profile.html" class="nav-link active">
+                    <i data-lucide="user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="page-container" style="max-width: 900px;">
+        <section class="page-title-section" style="margin-bottom: 40px;">
+            <h1 class="page-title">My <span class="gradient-text">Profile</span></h1>
+            <p class="page-subtitle">Manage physical parameters, upload avatars, and verify account security credentials.</p>
+        </section>
+
+        <div class="history-grid" style="grid-template-columns: 1fr 1.5fr;">
+            <!-- Left Card: Profile Image & Actions -->
+            <div class="marketing-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div class="profile-edit-avatar-section">
+                    <div class="avatar-edit-wrapper" id="avatar-trigger">
+                        <img id="profile-avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop" alt="User Avatar">
+                        <div class="avatar-overlay">
+                            <i data-lucide="camera"></i>
+                        </div>
+                    </div>
+                    <input type="file" id="avatar-file-input" style="display: none;" accept="image/*">
+                    <h3 class="profile-name" id="user-display-name">Loading...</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary);" id="user-display-email">name@domain.com</p>
+                </div>
+
+                <div class="p-stat-card bg-glass-dark" style="width: 100%; margin-bottom: 12px; text-align: left;">
+                    <span style="font-size: 11px; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 2px;">Joined Date</span>
+                    <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);" id="profile-joined-date">July 24, 2026</span>
+                </div>
+
+                <button class="btn btn-secondary btn-ripple" onclick="logoutUser()" style="width: 100%; padding: 12px; margin-top: 15px; border-color: var(--danger-color); color: var(--danger-color);">
+                    <i data-lucide="log-out" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                    Logout
+                </button>
+            </div>
+
+            <!-- Right Card: Edit Details Forms -->
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <!-- Physical details form -->
+                <div class="marketing-card">
+                    <h3 class="marketing-card-title">Personal Biometrics</h3>
+                    <form id="profile-update-form">
+                        <div class="form-group">
+                            <label for="prof-name" class="form-label">Full Name</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="user"></i>
+                                <input type="text" id="prof-name" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="prof-gender" class="form-label">Gender</label>
+                                <select id="prof-gender" class="form-select">
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="prof-age" class="form-label">Age</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="calendar"></i>
+                                    <input type="number" id="prof-age" class="form-input" style="padding-left: 48px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="prof-height" class="form-label">Height (cm)</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="ruler"></i>
+                                    <input type="number" id="prof-height" class="form-input" style="padding-left: 48px;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prof-weight" class="form-label">Weight (kg)</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="scale"></i>
+                                    <input type="number" id="prof-weight" class="form-input" style="padding-left: 48px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-ripple" id="btn-profile-save" style="width: 100%; padding: 12px; margin-top: 10px;">
+                            Save Biometrics
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Password update form -->
+                <div class="marketing-card">
+                    <h3 class="marketing-card-title">Change Password</h3>
+                    <form id="password-change-form">
+                        <div class="form-group">
+                            <label for="old-pwd" class="form-label">Current Password</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="lock"></i>
+                                <input type="password" id="old-pwd" class="form-input" placeholder="••••••••" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="new-pwd-1" class="form-label">New Password</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="lock"></i>
+                                    <input type="password" id="new-pwd-1" class="form-input" placeholder="••••••••" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-pwd-2" class="form-label">Confirm New Password</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="lock"></i>
+                                    <input type="password" id="new-pwd-2" class="form-input" placeholder="••••••••" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-ripple" id="btn-pwd-save" style="width: 100%; padding: 12px; margin-top: 10px; background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);">
+                            Update Credentials
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const pAvatar = document.getElementById('profile-avatar-img');
+            const pNameText = document.getElementById('user-display-name');
+            const pEmailText = document.getElementById('user-display-email');
+            const pJoinedText = document.getElementById('profile-joined-date');
+
+            const fName = document.getElementById('prof-name');
+            const fGender = document.getElementById('prof-gender');
+            const fAge = document.getElementById('prof-age');
+            const fHeight = document.getElementById('prof-height');
+            const fWeight = document.getElementById('prof-weight');
+
+            const bioForm = document.getElementById('profile-update-form');
+            const pwdForm = document.getElementById('password-change-form');
+
+            const fileInput = document.getElementById('avatar-file-input');
+            const avatarTrigger = document.getElementById('avatar-trigger');
+
+            // 1. Fetch user profile logs on load
+            async function loadProfile() {
+                try {
+                    const res = await apiFetch('/auth/profile');
+                    if (res.ok) {
+                        const user = await res.json();
+                        
+                        // Populate displays
+                        pNameText.textContent = user.full_name;
+                        pEmailText.textContent = user.email;
+                        pJoinedText.textContent = new Date(user.created_at).toLocaleDateString('en-US', {
+                            year: 'numeric', month: 'long', day: 'numeric'
+                        });
+                        if (user.profile_pic) {
+                            pAvatar.src = user.profile_pic;
+                        }
+
+                        // Populate form inputs
+                        fName.value = user.full_name;
+                        fGender.value = user.gender || 'female';
+                        fAge.value = user.age || '';
+                        fHeight.value = user.height || '';
+                        fWeight.value = user.weight || '';
+                    }
+                } catch (e) {
+                    showToast('Failed to retrieve user profile data.', 'error');
+                }
+            }
+
+            // Trigger file upload dialog on avatar click
+            avatarTrigger.addEventListener('click', () => fileInput.click());
+
+            // Handle file input changes (uploads file immediately)
+            fileInput.addEventListener('change', async () => {
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const token = getToken();
+                    const res = await fetch('/api/auth/profile/avatar', {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${token}` },
+                        body: formData
+                    });
+
+                    const data = await res.json();
+                    if (res.ok) {
+                        showToast('Avatar updated successfully.', 'success');
+                        pAvatar.src = data.profile_pic;
+                        
+                        // Also update top navbar
+                        const navAvatar = document.querySelector('#nav-auth-btn-wrap img');
+                        if (navAvatar) navAvatar.src = data.profile_pic;
+                    } else {
+                        showToast(data.detail || 'Avatar upload failed.', 'error');
+                    }
+                } catch (err) {
+                    showToast('Failed to communicate with image server.', 'error');
+                }
+            });
+
+            // Save details
+            bioForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const saveBtn = document.getElementById('btn-profile-save');
+                saveBtn.disabled = true;
+                saveBtn.textContent = 'Saving...';
+
+                const payload = {
+                    full_name: fName.value.trim(),
+                    gender: fGender.value,
+                    age: fAge.value ? parseInt(fAge.value) : null,
+                    height: fHeight.value ? parseFloat(fHeight.value) : null,
+                    weight: fWeight.value ? parseFloat(fWeight.value) : null
+                };
+
+                try {
+                    const res = await apiFetch('/auth/profile', {
+                        method: 'PUT',
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (res.ok) {
+                        showToast('Profile biometrics saved successfully.', 'success');
+                        const updatedUser = await res.json();
+                        pNameText.textContent = updatedUser.full_name;
+                    } else {
+                        const err = await res.json();
+                        showToast(err.detail || 'Failed to save profile.', 'error');
+                    }
+                } catch (err) {
+                    showToast('Biometrics save request failed.', 'error');
+                } finally {
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = 'Save Biometrics';
+                }
+            });
+
+            // Change password
+            pwdForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const oldPwd = document.getElementById('old-pwd').value;
+                const newPwd1 = document.getElementById('new-pwd-1').value;
+                const newPwd2 = document.getElementById('new-pwd-2').value;
+
+                if (newPwd1 !== newPwd2) {
+                    showToast('New passwords do not match.', 'error');
+                    return;
+                }
+
+                if (newPwd1.length < 6) {
+                    showToast('Password must be at least 6 characters.', 'error');
+                    return;
+                }
+
+                const saveBtn = document.getElementById('btn-pwd-save');
+                saveBtn.disabled = true;
+                saveBtn.textContent = 'Updating...';
+
+                try {
+                    const res = await apiFetch('/auth/profile/change-password', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            old_password: oldPwd,
+                            new_password: newPwd1,
+                            confirm_password: newPwd2
+                        })
+                    });
+
+                    if (res.ok) {
+                        showToast('Password credentials updated successfully.', 'success');
+                        pwdForm.reset();
+                    } else {
+                        const err = await res.json();
+                        showToast(err.detail || 'Incorrect current password.', 'error');
+                    }
+                } catch (err) {
+                    showToast('Credentials reset request failed.', 'error');
+                } finally {
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = 'Update Credentials';
+                }
+            });
+
+            // Initial Load
+            setTimeout(loadProfile, 200);
+        });
+    </script>
+</body>
+</html>

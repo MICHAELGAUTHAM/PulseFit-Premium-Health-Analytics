@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | PulseFit Health Community</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <!-- Aurora background blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <div class="auth-wrapper" style="padding: 20px 0;">
+        <div class="auth-card" style="max-width: 540px;">
+            <div class="auth-header">
+                <a href="index.html" class="auth-logo">
+                    <div class="logo-icon-wrap">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <span>Pulse<span>Fit</span></span>
+                </a>
+                <h2 class="auth-title">Create Account</h2>
+                <p class="auth-subtitle">Initialize your profile to calculate your fitness indices.</p>
+            </div>
+
+            <!-- Register Form -->
+            <form id="register-form" novalidate>
+                <div class="form-group">
+                    <label for="reg-name" class="form-label">Full Name</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user"></i>
+                        <input type="text" id="reg-name" class="form-input" placeholder="Sarah Jenkins" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email" class="form-label">Email Address</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="mail"></i>
+                        <input type="email" id="reg-email" class="form-input" placeholder="name@domain.com" required>
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="reg-pwd" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="lock"></i>
+                            <input type="password" id="reg-pwd" class="form-input" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-cpwd" class="form-label">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="lock"></i>
+                            <input type="password" id="reg-cpwd" class="form-input" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="reg-gender" class="form-label">Gender</label>
+                        <select id="reg-gender" class="form-select" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-age" class="form-label">Age</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="calendar"></i>
+                            <input type="number" id="reg-age" class="form-input" style="padding-left: 48px;" placeholder="24" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="reg-height" class="form-label">Height (cm)</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="ruler"></i>
+                            <input type="number" id="reg-height" class="form-input" style="padding-left: 48px;" placeholder="175" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-weight" class="form-label">Weight (kg)</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="scale"></i>
+                            <input type="number" id="reg-weight" class="form-input" style="padding-left: 48px;" placeholder="70" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms-agree" required>
+                        <span>I agree to the <a href="terms.html" class="auth-link" target="_blank">Terms & Conditions</a> and <a href="privacy.html" class="auth-link" target="_blank">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-auth btn-ripple" id="reg-submit-btn">
+                    <span>Create Profile</span>
+                    <i data-lucide="user-plus"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer-text" style="margin-top: 25px;">
+                Already have an account? <a href="login.html" class="auth-link">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const form = document.getElementById('register-form');
+            const submitBtn = document.getElementById('reg-submit-btn');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('reg-name').value.trim();
+                const email = document.getElementById('reg-email').value.trim();
+                const password = document.getElementById('reg-pwd').value;
+                const confirmPassword = document.getElementById('reg-cpwd').value;
+                const gender = document.getElementById('reg-gender').value;
+                const ageVal = document.getElementById('reg-age').value;
+                const heightVal = document.getElementById('reg-height').value;
+                const weightVal = document.getElementById('reg-weight').value;
+                const terms = document.getElementById('terms-agree').checked;
+
+                // Validate Inputs
+                if (!name || !email || !password || !confirmPassword || !terms) {
+                    showToast('Please fill out all mandatory fields and agree to terms.', 'error');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    showToast('Passwords do not match.', 'error');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showToast('Password must be at least 6 characters long.', 'error');
+                    return;
+                }
+
+                // Show Loader
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span class="spinner"></span> <span>Creating Profile...</span>`;
+
+                const payload = {
+                    full_name: name,
+                    email: email,
+                    password: password,
+                    confirm_password: confirmPassword,
+                    gender: gender || null,
+                    age: ageVal ? parseInt(ageVal) : null,
+                    height: heightVal ? parseFloat(heightVal) : null,
+                    weight: weightVal ? parseFloat(weightVal) : null
+                };
+
+                try {
+                    const res = await fetch('/api/auth/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        showToast('Registration successful! Redirecting to login...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1800);
+                    } else {
+                        showToast(data.detail || 'Failed to register account.', 'error');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = `<span>Create Profile</span> <i data-lucide="user-plus"></i>`;
+                        if (window.lucide) window.lucide.createIcons();
+                    }
+                } catch (err) {
+                    showToast('API communication failed. Check backend connection.', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span>Create Profile</span> <i data-lucide="user-plus"></i>`;
+                    if (window.lucide) window.lucide.createIcons();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

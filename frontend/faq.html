@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs | PulseFit Premium Health Support</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <!-- Aurora background blobs -->
+    <div class="aurora-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div id="mouse-glow" class="mouse-glow"></div>
+
+    <!-- Navigation Header -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon-wrap">
+                    <i data-lucide="activity" class="logo-icon"></i>
+                </div>
+                <span>Pulse<span>Fit</span></span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="faq.html" class="nav-link active">FAQs</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <div id="nav-auth-btn-wrap">
+                    <!-- Configured dynamically by auth.js -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <section class="page-title-section">
+            <h1 class="page-title">Frequently Asked <span class="gradient-text">Questions</span></h1>
+            <p class="page-subtitle">Find quick answers to common queries regarding tracker biometrics, account settings, and features.</p>
+        </section>
+
+        <!-- Accordions -->
+        <section class="faq-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span class="accordion-title">How is my Daily Health Index calculated?</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="accordion-body">
+                    <p class="accordion-text">
+                        Your Daily Health Index score (percentage) is computed dynamically based on your progress towards four core targets: your hydration target (ml), your active step count goal, your calorie output threshold, and your logged sleep duration. Reaching all four targets yields a 100% Index score.
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span class="accordion-title">How do I unlock streaks and achievements?</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="accordion-body">
+                    <p class="accordion-text">
+                        Streaks and achievements are evaluated by our backend engine on every biometric update. For example, logging daily data for 7 consecutive days unlocks the "7-Day Streak" badge, while logging water intake above 2.5L triggers the "Hydration Master" badge. Unlocks issue system notifications immediately.
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span class="accordion-title">How does PulseFit handle metric vs imperial units?</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="accordion-body">
+                    <p class="accordion-text">
+                        You can adjust display settings in the Settings panel. Checking "Metric Units" formats your height in centimeters (cm) and weight in kilograms (kg). Unchecking switches to Imperial formatting (inches and pounds). Calculations automatically translate between representations.
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span class="accordion-title">Is my health information secure?</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="accordion-body">
+                    <p class="accordion-text">
+                        Security is our priority. PulseFit hashes all credentials using industry-grade bcrypt algorithms and issues stateless, secure JWT (JSON Web Tokens) to authenticate API requests. Route endpoints require tokens to verify access permissions, blocking SQL injection attempts.
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span class="accordion-title">Can I export my logs or delete my account?</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="accordion-body">
+                    <p class="accordion-text">
+                        Yes. In your settings dashboard, you can trigger a JSON export containing your entire recorded health history. If you wish to delete your credentials, clicking "Delete Account" triggers a cascading database sweep, removing all your profile details, record logs, and badge histories instantly.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-glass">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i data-lucide="activity" class="text-primary"></i>
+                <span class="font-heading">PulseFit</span>
+            </div>
+            <p class="footer-copy">© 2026 PulseFit Inc. Designed for premium health awareness. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+                <a href="#" class="social-btn" aria-label="GitHub"><i data-lucide="github"></i></a>
+                <a href="#" class="social-btn" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+
+            const headers = document.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const body = header.nextElementSibling;
+                    const isOpen = body.classList.contains('open');
+                    
+                    // Close all other items
+                    document.querySelectorAll('.accordion-body').forEach(b => {
+                        b.classList.remove('open');
+                        b.style.maxHeight = '0';
+                        b.previousElementSibling.classList.remove('active');
+                    });
+                    
+                    if (!isOpen) {
+                        header.classList.add('active');
+                        body.classList.add('open');
+                        body.style.maxHeight = body.scrollHeight + 'px';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
